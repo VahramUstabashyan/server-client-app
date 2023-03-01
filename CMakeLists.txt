@@ -5,7 +5,9 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_executable(client_app
         client.cpp
-        Client.hpp)
+        Client.hpp
+        ClientCommandHandler.hpp
+        ClientCommandHandler.cpp)
 
 add_executable(server_app
         server.cpp
