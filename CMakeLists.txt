@@ -11,4 +11,7 @@ add_executable(client_app
 
 add_executable(server_app
         server.cpp
-        Server.hpp)
+        Server.hpp
+        Server.cpp
+        Connection.hpp
+        Connection.cpp)

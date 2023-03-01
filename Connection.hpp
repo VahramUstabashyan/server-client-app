@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <boost/asio.hpp>
 
 using boost::asio::ip::tcp;
@@ -10,6 +11,8 @@ private:
     /// TCP socket pointer for current connection
     std::shared_ptr<tcp::socket> socket_ptr;
 
+    boost::asio::streambuf read_buf;
+    std::string read_msg;
 public:
     /**
      * Constructor
@@ -27,6 +30,12 @@ public:
      * @param msg Data to write
      */
     void write(std::string msg);
+
+    /**
+     * Get IP address and port of the remote endpoint in `address:port` format
+     * @return Remote IP address and port as string
+     */
+    std::string remote_ip_port();
 
 private:
     /**
