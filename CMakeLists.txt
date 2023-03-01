@@ -4,7 +4,9 @@ project(server_client_app)
 set(CMAKE_CXX_STANDARD 14)
 
 add_executable(client_app
-        client.cpp)
+        client.cpp
+        Client.hpp)
 
 add_executable(server_app
-        server.cpp)
+        server.cpp
+        Server.hpp)
