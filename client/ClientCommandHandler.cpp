@@ -22,7 +22,7 @@ bool ClientCommandHandler::handle_command(const std::string& command) {
         /// Handle shell command
         std::string cmd = get_argument(command_ss);
         std::cout << "executing shell command... Command: " << cmd << std::endl;
-//        client->shell(cmd);
+        client->shell(cmd);
     } else if (token == "quit") {
         /// Handle quit
         return true;

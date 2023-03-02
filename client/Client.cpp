@@ -11,3 +11,7 @@ void Client::connect(const std::string& ip, int port) {
         std::cout << "Error occurred while connecting: " << e.what() << std::endl;
     }
 }
+
+void Client::shell(const std::string& command) {
+    server->writeln(command);
+}

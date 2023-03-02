@@ -42,5 +42,5 @@ public:
      * @param command Shell command to execute on server
      * @return Response message
      */
-    std::string shell(std::string command);
+    void shell(const std::string& command);
 };
