@@ -8,14 +8,14 @@ find_package(Boost REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
 add_executable(client_app
-        client.cpp
+        client_app.cpp
         Client.hpp
         ClientCommandHandler.hpp
         ClientCommandHandler.cpp)
 target_link_libraries(client_app PUBLIC ${Boost_LIBRARIES})
 
 add_executable(server_app
-        server.cpp
+        server_app.cpp
         Server.hpp
         Server.cpp
         Connection.hpp
