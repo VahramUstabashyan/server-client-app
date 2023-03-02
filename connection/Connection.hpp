@@ -29,7 +29,13 @@ public:
      * Write data asynchronously
      * @param msg Data to write
      */
-    void write(std::string msg);
+    void write(const std::string& msg);
+
+    /**
+     * Same as `write` but add '\n' at the end
+     * @param msg Data to write
+     */
+    void writeln(const std::string& msg);
 
     /**
      * Get IP address and port of the remote endpoint in `address:port` format
