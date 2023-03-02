@@ -10,7 +10,7 @@ void Client::connect(const std::string& ip, int port) {
         server->read();
         std::cout << "Connection successfully established with " << server->remote_ip_port() << std::endl;
     } catch (boost::system::system_error &e) {
-        std::cout << "Error occurred while connecting: " << e.what() << std::endl;
+        std::cerr << "Error occurred while connecting: " << e.what() << '\n';
     }
 }
 

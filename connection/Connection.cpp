@@ -59,6 +59,5 @@ void Connection::close() {
 void Connection::update() {
     std::cout << "New message from " << remote_ip_port() << std::endl;
     auto response = observer->handle_new_message(get_last_msg());
-    std::cout << response << std::endl;
     writeln(response);
 }
