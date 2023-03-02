@@ -21,4 +21,7 @@ public:
      * @return Quit (whether the command is "quit")
      */
     bool handle_command(const std::string& command);
+
+private:
+    static std::string get_argument(std::istringstream& ss);
 };
