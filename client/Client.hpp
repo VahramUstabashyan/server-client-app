@@ -8,15 +8,14 @@
 
 class Client {
 private:
-    /// TCP connection context and thread
-    boost::asio::io_context io_context;
-    std::thread io_thread;
+    /// TCP connection io service
+    boost::asio::io_service io_service;
 
     /// Connection with server
     std::shared_ptr<Connection> server;
 public:
-    /// Constructor
-    Client();
+    /// Default constructor
+    Client() = default;
 
     /**
      * Construct and connect
@@ -24,9 +23,6 @@ public:
      * @param port Connection port
      */
     Client(const std::string& ip, int port);
-
-    /// Destructor
-    ~Client();
 
     /**
      * Connect to the server by IP and Port
@@ -47,12 +43,4 @@ public:
      * @return Response message
      */
     std::string shell(std::string command);
-
-private:
-    /**
-     * Handle connection request
-     * @param err Error code
-     * @param socket_ptr TCP socket pointer
-     */
-    void handle_connect(boost::system::error_code err, std::unique_ptr<tcp::socket> socket_ptr);
 };
