@@ -13,7 +13,7 @@ bool ClientCommandHandler::handle_command(const std::string& command) {
         int port = std::stoi(get_argument(command_ss));
         std::cout << "connecting to server with IP: " << ip
                   << " on port: " << port << std::endl;
-//        client->connect(ip, port);
+        client->connect(ip, port);
     } else if (token == "disconnect") {
         /// Handle disconnect
         std::cout << "disconnecting..." << std::endl;

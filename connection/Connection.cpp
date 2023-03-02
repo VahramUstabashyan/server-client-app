@@ -27,3 +27,7 @@ std::string Connection::remote_ip_port() {
     return socket_ptr->remote_endpoint().address().to_string()
            + ":" + std::to_string(socket_ptr->remote_endpoint().port());
 }
+
+void Connection::close() {
+    socket_ptr->close();
+}

@@ -37,6 +37,11 @@ public:
      */
     std::string remote_ip_port();
 
+    /**
+     * Close the socket
+     */
+    void close();
+
 private:
     /**
      * Handle reading data

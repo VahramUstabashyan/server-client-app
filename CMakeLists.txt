@@ -10,8 +10,11 @@ include_directories(${Boost_INCLUDE_DIRS})
 add_executable(client_app
         client_app.cpp
         client/Client.hpp
+        client/Client.cpp
         client/ClientCommandHandler.hpp
-        client/ClientCommandHandler.cpp)
+        client/ClientCommandHandler.cpp
+        connection/Connection.hpp
+        connection/Connection.cpp)
 target_link_libraries(client_app PUBLIC ${Boost_LIBRARIES})
 
 add_executable(server_app
