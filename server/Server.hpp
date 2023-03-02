@@ -11,7 +11,7 @@
 
 using boost::asio::ip::tcp;
 
-class Server {
+class Server : public ConnectionObserver {
 private:
     /// TCP connection context, acceptor and thread
     boost::asio::io_context io_context;
@@ -41,7 +41,14 @@ public:
      * @param command Shell command to execute
      * @return Response message
      */
-    std::string shell(std::string command);
+    static std::string shell(const std::string& command);
+
+    /**
+     * Handle new message
+     * @param msg Received message
+     * @return Response
+     */
+    std::string handle_new_message(std::string msg) override;
 
 private:
     /**
@@ -55,5 +62,4 @@ private:
      * @param err Error code when trying to accept connection
      */
     void handle_connection(boost::system::error_code err, tcp::socket& socket);
-
 };

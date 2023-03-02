@@ -1,6 +1,6 @@
 #include "ClientCommandHandler.hpp"
 
-ClientCommandHandler::ClientCommandHandler(std::unique_ptr<Client> client)
+ClientCommandHandler::ClientCommandHandler(std::shared_ptr<Client> client)
         : client(std::move(client)) {
 }
 

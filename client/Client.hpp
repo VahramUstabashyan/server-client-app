@@ -1,12 +1,14 @@
 #pragma once
 
+#include <memory>
 #include <string>
 #include <boost/asio.hpp>
 
 #include "../connection/Connection.hpp"
+#include "../observer/ConnectionObserver.hpp"
 
 
-class Client {
+class Client : public ConnectionObserver {
 private:
     /// TCP connection io service
     boost::asio::io_service io_service;
@@ -43,4 +45,11 @@ public:
      * @return Response message
      */
     void shell(const std::string& command);
+
+    /**
+     * Handle message from server
+     * @param msg Received message
+     * @return Response
+     */
+    std::string handle_new_message(std::string msg) override;
 };

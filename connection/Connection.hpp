@@ -3,10 +3,12 @@
 #include <iostream>
 #include <boost/asio.hpp>
 
+#include "../observer/Observable.hpp"
+
 using boost::asio::ip::tcp;
 
 
-class Connection {
+class Connection : public Observable {
 private:
     /// TCP socket pointer for current connection
     std::unique_ptr<tcp::socket> socket_ptr;
@@ -26,6 +28,12 @@ public:
     void read();
 
     /**
+     * Get last read message
+     * @return last message
+     */
+    std::string get_last_msg() const;
+
+    /**
      * Write data asynchronously
      * @param msg Data to write
      */
@@ -41,12 +49,17 @@ public:
      * Get IP address and port of the remote endpoint in `address:port` format
      * @return Remote IP address and port as string
      */
-    std::string remote_ip_port();
+    std::string remote_ip_port() const;
 
     /**
      * Close the socket
      */
     void close();
+
+    /**
+     * Update connection observer
+     */
+    void update();
 
 private:
     /**
@@ -61,5 +74,5 @@ private:
      * @param err Error code
      * @param bytes_written Number of bytes written
      */
-    void handle_write(boost::system::error_code err, std::size_t bytes_written);
+    void handle_write(boost::system::error_code err, std::size_t bytes_written) const;
 };

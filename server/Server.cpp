@@ -36,6 +36,7 @@ void Server::handle_connection(boost::system::error_code err,
             if (!connection_p) {
                 connection_p = std::make_shared<Connection>(
                         std::make_unique<tcp::socket>(std::move(socket)));
+                connection_p->set_observer(shared_from_this());
                 connection_p->read();
                 success = true;
                 std::cout << "Client " << connection_p->remote_ip_port() << " successfully added!" << std::endl;
@@ -47,4 +48,8 @@ void Server::handle_connection(boost::system::error_code err,
         }
     }
     async_accept();
+}
+
+std::string Server::handle_new_message(std::string msg) {
+    return shell(msg);
 }

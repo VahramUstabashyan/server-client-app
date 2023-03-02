@@ -20,7 +20,12 @@ void Connection::handle_read(boost::system::error_code err, std::size_t bytes_re
     read_msg = {boost::asio::buffers_begin(read_buf.data()), boost::asio::buffers_end(read_buf.data())};
     std::cout << "Received message: " << read_msg << std::endl;
     read_buf.consume(bytes_read);
+    update();
     read();
+}
+
+std::string Connection::get_last_msg() const {
+    return read_msg;
 }
 
 void Connection::writeln(const std::string& msg) {
@@ -34,7 +39,7 @@ void Connection::write(const std::string& msg) {
                            });
 }
 
-void Connection::handle_write(boost::system::error_code err, std::size_t bytes_written) {
+void Connection::handle_write(boost::system::error_code err, std::size_t bytes_written) const {
     if (err) {
         std::cout << "Writing to " << remote_ip_port() << " failed with error code: " << err << std::endl;
         return;
@@ -42,11 +47,18 @@ void Connection::handle_write(boost::system::error_code err, std::size_t bytes_w
     std::cout << "Written " << bytes_written << " bytes to " << remote_ip_port() << std::endl;
 }
 
-std::string Connection::remote_ip_port() {
+std::string Connection::remote_ip_port() const {
     return socket_ptr->remote_endpoint().address().to_string()
            + ":" + std::to_string(socket_ptr->remote_endpoint().port());
 }
 
 void Connection::close() {
     socket_ptr->close();
+}
+
+void Connection::update() {
+    std::cout << "New message from " << remote_ip_port() << std::endl;
+    auto response = observer->handle_new_message(get_last_msg());
+    std::cout << response << std::endl;
+    writeln(response);
 }

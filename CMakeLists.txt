@@ -14,7 +14,11 @@ add_executable(client_app
         client/ClientCommandHandler.hpp
         client/ClientCommandHandler.cpp
         connection/Connection.hpp
-        connection/Connection.cpp)
+        connection/Connection.cpp
+        observer/ConnectionObserver.hpp
+        observer/ConnectionObserver.cpp
+        observer/Observable.hpp
+        observer/Observable.cpp)
 target_link_libraries(client_app PUBLIC ${Boost_LIBRARIES})
 
 add_executable(server_app
@@ -22,5 +26,9 @@ add_executable(server_app
         server/Server.hpp
         server/Server.cpp
         connection/Connection.hpp
-        connection/Connection.cpp)
+        connection/Connection.cpp
+        observer/ConnectionObserver.hpp
+        observer/ConnectionObserver.cpp
+        observer/Observable.hpp
+        observer/Observable.cpp)
 target_link_libraries(server_app PUBLIC ${Boost_LIBRARIES})
