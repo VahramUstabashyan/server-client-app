@@ -7,7 +7,7 @@
 #include <thread>
 #include <boost/asio.hpp>
 
-#include "Connection.hpp"
+#include "../connection/Connection.hpp"
 
 using boost::asio::ip::tcp;
 

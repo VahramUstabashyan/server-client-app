@@ -1,10 +1,11 @@
 #pragma once
 
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <memory>
 
-#include "Client.hpp"
+#include "../client/Client.hpp"
 
 class ClientCommandHandler {
 private:

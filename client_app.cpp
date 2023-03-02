@@ -1,8 +1,8 @@
 #include <iostream>
 #include <memory>
 
-#include "Client.hpp"
-#include "ClientCommandHandler.hpp"
+#include "client/Client.hpp"
+#include "client/ClientCommandHandler.hpp"
 
 int main() {
     std::cout << "This is client application." << std::endl;

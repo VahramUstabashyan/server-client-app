@@ -2,7 +2,7 @@
 #include <string>
 #include <memory>
 
-#include "Server.hpp"
+#include "server/Server.hpp"
 
 
 int main() {
