@@ -9,7 +9,7 @@ using boost::asio::ip::tcp;
 class Connection {
 private:
     /// TCP socket pointer for current connection
-    std::shared_ptr<tcp::socket> socket_ptr;
+    std::unique_ptr<tcp::socket> socket_ptr;
 
     boost::asio::streambuf read_buf;
     std::string read_msg;
@@ -18,7 +18,7 @@ public:
      * Constructor
      * @param socket_ptr TCP socket pointer
      */
-    explicit Connection(std::shared_ptr<tcp::socket> socket_ptr);
+    explicit Connection(std::unique_ptr<tcp::socket> socket_ptr);
 
     /**
      * Read data asynchronously

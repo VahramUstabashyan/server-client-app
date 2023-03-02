@@ -1,6 +1,6 @@
 #include "Connection.hpp"
 
-Connection::Connection(std::shared_ptr<tcp::socket> socket_ptr)
+Connection::Connection(std::unique_ptr<tcp::socket> socket_ptr)
         : socket_ptr(std::move(socket_ptr)),
           read_buf(512) {
 

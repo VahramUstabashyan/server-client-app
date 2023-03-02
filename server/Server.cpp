@@ -13,15 +13,16 @@ Server::Server(const std::string& ip, int port)
 }
 
 Server::~Server() {
-    io_context.stop();
-    io_thread.join();
+    if (io_thread.joinable()) {
+        io_context.stop();
+        io_thread.join();
+    }
 }
 
 void Server::async_accept() {
-    auto socket_ptr = std::make_shared<tcp::socket>(io_context);
     acceptor.async_accept([this](boost::system::error_code err,
-                                 tcp::socket socket_ptr) {
-        handle_connection(err, socket_ptr);
+                                 tcp::socket socket) {
+        handle_connection(err, socket);
     });
 }
 
@@ -34,7 +35,7 @@ void Server::handle_connection(boost::system::error_code err,
         for (auto& connection_p : clients) {
             if (!connection_p) {
                 connection_p = std::make_shared<Connection>(
-                        std::make_shared<tcp::socket>(std::move(socket)));
+                        std::make_unique<tcp::socket>(std::move(socket)));
                 connection_p->read();
                 success = true;
                 std::cout << "Client " << connection_p->remote_ip_port() << " successfully added!" << std::endl;
