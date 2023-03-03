@@ -19,4 +19,6 @@ public:
 
 protected:
     static void not_connected();
+
+    static void already_connected();
 };

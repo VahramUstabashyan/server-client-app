@@ -17,10 +17,12 @@ void Connection::read() {
 
 void Connection::handle_read(boost::system::error_code err, std::size_t bytes_read) {
     if (err) std::cout << "Error code: " << err << std::endl;
-    read_msg = {boost::asio::buffers_begin(read_buf.data()), boost::asio::buffers_end(read_buf.data())};
-    std::cout << "Received message: " << read_msg << std::endl;
-    read_buf.consume(bytes_read);
-    update();
+    if (bytes_read) {
+        read_msg = {boost::asio::buffers_begin(read_buf.data()), boost::asio::buffers_end(read_buf.data())};
+        std::cout << "Received message (" << bytes_read << " bytes): " << read_msg << std::endl;
+        read_buf.consume(bytes_read);
+        update();
+    }
     read();
 }
 
@@ -59,5 +61,5 @@ void Connection::close() {
 void Connection::update() {
     std::cout << "New message from " << remote_ip_port() << std::endl;
     auto response = observer->handle_new_message(get_last_msg());
-    writeln(response);
+    if (!response.empty()) writeln(response);
 }

@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <string>
+#include <thread>
 #include <boost/asio.hpp>
 
 #include "../connection/Connection.hpp"
@@ -10,8 +11,9 @@
 
 class Client : public ConnectionObserver {
 private:
-    /// TCP connection io service
-    boost::asio::io_service io_service;
+    /// TCP connection context and thread
+    boost::asio::io_context io_context;
+    std::thread io_thread;
 
     /// Connection with server
     std::shared_ptr<Connection> server;
