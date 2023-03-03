@@ -29,8 +29,8 @@ void Server::handle_connection(boost::system::error_code err,
     if (!err) {
         std::cout << "Connection request" << std::endl;
 
+        auto client = std::make_unique<Connection>(std::make_unique<tcp::socket>(std::move(socket)));
         if (num_clients < max_clients) {
-            auto client = std::make_unique<Connection>(std::make_unique<tcp::socket>(std::move(socket)));
             auto remote_ip_port = client->remote_ip_port();
             client->set_observer(shared_from_this());
             client->read();
@@ -39,6 +39,8 @@ void Server::handle_connection(boost::system::error_code err,
             std::cout << "Client " << remote_ip_port << " successfully added!" << std::endl;
         } else {
             std::cout << "Failed to add client: maximum number of clients reached (" << max_clients << ")" << std::endl;
+            client->writeln("Maximum number of clients reached. Connection rejected.");
+            client->close();
         }
     }
     async_accept();
