@@ -32,7 +32,7 @@ void Server::handle_connection(boost::system::error_code err,
         auto client = std::make_unique<Connection>(std::make_unique<tcp::socket>(std::move(socket)));
         if (num_clients < max_clients) {
             auto remote_ip_port = client->remote_ip_port();
-            client->set_observer(shared_from_this());
+            client->set_observer(weak_from_this());
             client->read();
             clients[remote_ip_port] = std::move(client);
             ++num_clients;

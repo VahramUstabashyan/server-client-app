@@ -11,7 +11,7 @@ void Client::connect(const std::string& ip, int port) {
         auto socket_ptr = std::make_unique<tcp::socket>(io_context);
         socket_ptr->connect(endpoint);
         server = std::make_shared<Connection>(std::move(socket_ptr));
-        server->set_observer(shared_from_this());
+        server->set_observer(weak_from_this());
         server->read();
         io_thread = std::thread([this]() {
             io_context.run();

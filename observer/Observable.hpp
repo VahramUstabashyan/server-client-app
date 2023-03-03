@@ -9,11 +9,11 @@
 class Observable {
 protected:
     /// ConnectionObserver pointer
-    std::shared_ptr<ConnectionObserver> observer;
+    std::weak_ptr<ConnectionObserver> observer_weak;
 public:
     /**
      * Set observer
      * @param o The observer to set
      */
-    void set_observer(std::shared_ptr<ConnectionObserver> o);
+    void set_observer(std::weak_ptr<ConnectionObserver> o);
 };

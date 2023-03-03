@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <memory>
-#include <boost/enable_shared_from_this.hpp>
 #include <boost/asio.hpp>
 
 class Connection;

@@ -72,6 +72,8 @@ void Connection::close() {
 
 void Connection::update() {
 //    std::cout << "New message from " << remote_ip_port() << std::endl;
+    auto observer = observer_weak.lock();
+    if (!observer) return;
     auto msg = get_last_msg();
     msg = msg.substr(0, msg.size() - END_OF_MESSAGE.size());
     auto response = observer->handle_new_message(msg, remote_ip_port());
