@@ -66,7 +66,7 @@ std::string Server::shell(const std::string& command) {
     std::array<char, 128> buffer{};
     std::string output;
     std::unique_ptr<FILE, decltype(&pclose)> pipe(
-            popen(command.c_str(), "r"),
+            popen((command + " 2>&1").c_str(), "r"),  // Redirect `stderr` to `stdout`
             pclose);
     if (!pipe) {
         throw std::runtime_error("popen() failed!");
