@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <string>
-#include <vector>
+#include <map>
 #include <memory>
 #include <thread>
 #include <boost/asio.hpp>
@@ -19,10 +19,13 @@ private:
     std::thread io_thread;
 
     /// Client connections vector
-    std::vector<std::shared_ptr<Connection>> clients;
+    std::map<std::string, std::unique_ptr<Connection>> clients;
 
     /// Maximum number of clients
     const int max_clients = 5;
+
+    /// Number of connected clients
+    std::atomic<int> num_clients;
 public:
     /// Constructor
     Server(const std::string& ip, int port);
@@ -61,5 +64,5 @@ private:
      * @param socket TCP socket pointer
      * @param err Error code when trying to accept connection
      */
-    void handle_connection(boost::system::error_code err, tcp::socket& socket);
+    void handle_connection(boost::system::error_code err, tcp::socket socket);
 };
