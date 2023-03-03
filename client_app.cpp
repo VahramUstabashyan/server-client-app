@@ -11,9 +11,9 @@ int main() {
     auto command_handler = std::make_unique<ClientCommandHandler>(std::move(client));
 
     std::string user_input;
-    bool exit = false;
-    while (!exit) {
+    bool quit = false;
+    while (!quit) {
         std::getline(std::cin, user_input);
-        exit = command_handler->handle_command(user_input);
+        quit = command_handler->handle_command(user_input);
     }
 }
