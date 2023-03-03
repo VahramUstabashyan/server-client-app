@@ -18,7 +18,7 @@ private:
     tcp::acceptor acceptor;
     std::thread io_thread;
 
-    /// Client connections vector
+    /// Client connections
     std::map<std::string, std::unique_ptr<Connection>> clients;
 
     /// Maximum number of clients
@@ -35,9 +35,9 @@ public:
 
     /**
      * Disconnect from the client
-     * @return Success
+     * @param ip_port Client IP and Port in ip:port format
      */
-    bool disconnect();
+    void disconnect(const std::string& ip_port);
 
     /**
      * Execute command in the shell
@@ -51,7 +51,7 @@ public:
      * @param msg Received message
      * @return Response
      */
-    std::string handle_new_message(std::string msg) override;
+    std::string handle_new_message(std::string msg, const std::string& ip_port) override;
 
 private:
     /**

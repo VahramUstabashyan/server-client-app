@@ -10,12 +10,18 @@ using boost::asio::ip::tcp;
 
 class Connection : public Observable {
 private:
+    /// Const random-generated string to mark the end of the message
+    const std::string END_OF_MESSAGE = "MhDKYv0BenZ9qLGHoG4PlClGarO4H8Vww15By2xz";
+
     /// TCP socket pointer for current connection
     std::unique_ptr<tcp::socket> socket_ptr;
 
     boost::asio::streambuf read_buf;
     std::string read_msg;
 public:
+    /// Default constructor
+    Connection() = default;
+
     /**
      * Constructor
      * @param socket_ptr TCP socket pointer
@@ -50,6 +56,12 @@ public:
      * @return Remote IP address and port as string
      */
     std::string remote_ip_port() const;
+
+    /**
+     * Whether the connection is open
+     * @return Connection status
+     */
+    bool is_open();
 
     /**
      * Close the socket

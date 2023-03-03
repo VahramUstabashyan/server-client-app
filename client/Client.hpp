@@ -19,7 +19,7 @@ private:
     std::shared_ptr<Connection> server;
 public:
     /// Default constructor
-    Client() = default;
+    Client();
 
     /**
      * Construct and connect
@@ -27,6 +27,9 @@ public:
      * @param port Connection port
      */
     Client(const std::string& ip, int port);
+
+    /// Destructor
+    ~Client();
 
     /**
      * Connect to the server by IP and Port
@@ -37,9 +40,8 @@ public:
 
     /**
      * Disconnect from the server
-     * @return Success
      */
-    bool disconnect();
+    void disconnect();
 
     /**
      * Send shell command to the server
@@ -53,5 +55,5 @@ public:
      * @param msg Received message
      * @return Response
      */
-    std::string handle_new_message(std::string msg) override;
+    std::string handle_new_message(std::string msg, const std::string& ip_port) override;
 };

@@ -44,8 +44,20 @@ void Server::handle_connection(boost::system::error_code err,
     async_accept();
 }
 
-std::string Server::handle_new_message(std::string msg) {
-    return shell(msg);
+std::string Server::handle_new_message(std::string msg, const std::string& ip_port) {
+    if (msg == "disconnect") {
+        disconnect(ip_port);
+        std::cout << "Successfully disconnected from client " << ip_port << std::endl;
+        return {};
+    } else {
+        return shell(msg);
+    }
+}
+
+void Server::disconnect(const std::string& ip_port) {
+    clients[ip_port]->close();
+    clients.erase(ip_port);
+    --num_clients;
 }
 
 std::string Server::shell(const std::string& command) {

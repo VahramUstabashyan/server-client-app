@@ -5,7 +5,7 @@
 #include <string>
 #include <memory>
 
-#include "../client/Client.hpp"
+#include "Client.hpp"
 
 class ClientCommandHandler {
 private:
@@ -23,5 +23,17 @@ public:
     bool handle_command(const std::string& command);
 
 private:
+    /**
+     * Get next argument from user input
+     * @param ss Input sstream
+     * @return Argument
+     */
     static std::string get_argument(std::istringstream& ss);
+
+    /**
+     * Get value in quotes
+     * @param ss Input sstream
+     * @return Value in quotes
+     */
+    static std::string get_in_quotes(std::istringstream& ss);
 };

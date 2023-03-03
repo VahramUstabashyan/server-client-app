@@ -1,7 +1,11 @@
 #include "Client.hpp"
 
+Client::Client() {
+    server = std::make_shared<Connection>();
+}
+
 void Client::connect(const std::string& ip, int port) {
-    if (server) return already_connected();
+    if (server->is_open()) return already_connected();
     try {
         auto endpoint = tcp::endpoint(boost::asio::ip::make_address(ip), port);
         auto socket_ptr = std::make_unique<tcp::socket>(io_context);
@@ -18,12 +22,24 @@ void Client::connect(const std::string& ip, int port) {
     }
 }
 
+void Client::disconnect() {
+    if (!server->is_open()) return not_connected();
+    server->writeln("disconnect");
+    server->close();
+    io_context.stop();
+    io_thread.join();
+}
+
 void Client::shell(const std::string& command) {
-    if (!server) return not_connected();
+    if (!server->is_open()) return not_connected();
     server->writeln(command);
 }
 
-std::string Client::handle_new_message(std::string msg) {
-    std::cout << "Server response: " << msg << std::endl;
+std::string Client::handle_new_message(std::string msg, const std::string& ip_port) {
+    std::cerr << msg << std::endl;
     return {};
+}
+
+Client::~Client() {
+    disconnect();
 }
