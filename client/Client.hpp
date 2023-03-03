@@ -21,13 +21,6 @@ public:
     /// Default constructor
     Client();
 
-    /**
-     * Construct and connect
-     * @param ip IP address of the server
-     * @param port Connection port
-     */
-    Client(const std::string& ip, int port);
-
     /// Destructor
     ~Client();
 
