@@ -41,7 +41,6 @@ std::string ClientCommandHandler::get_argument(std::istringstream& ss) {
     std::string token;
     std::getline(ss, token, ' ');
     if (token.empty()) {
-        std::cout << "Argument missing." << std::endl;
         throw std::invalid_argument("Argument missing");
     }
     return token;
@@ -52,10 +51,9 @@ std::string ClientCommandHandler::get_in_quotes(std::istringstream& ss) {
     std::getline(ss, token, '"');
     std::getline(ss, token, '"');
     if (token.empty()) {
-        std::cout << "Argument missing." << std::endl;
+        throw std::invalid_argument("Argument missing");
     } else if (ss.str().back() != '"') {
-        std::cout << "Missing quote" << std::endl;
-        throw std::invalid_argument("Missing quote");
+        throw std::invalid_argument("Missing quote(s)");
     }
     return token;
 }
