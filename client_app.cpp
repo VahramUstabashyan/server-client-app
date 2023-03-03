@@ -6,6 +6,7 @@
 
 int main() {
     std::cout << "This is client application." << std::endl;
+    std::cout << "Enter 'quit' to stop." << std::endl;
 
     auto client = std::make_shared<Client>();
     auto command_handler = std::make_unique<ClientCommandHandler>(std::move(client));
