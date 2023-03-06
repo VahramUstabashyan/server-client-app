@@ -28,6 +28,7 @@ cd ${SERVER_CLIENT_APP_PROJECT_DIR}
 mkdir build
 cd build
 cmake ${SERVER_CLIENT_APP_PROJECT_DIR}
+make
 ```
 
 ##### NOTE: You must have this application built both on server side and client side
