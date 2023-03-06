@@ -32,3 +32,18 @@ add_executable(server_app
         observer/Observable.hpp
         observer/Observable.cpp)
 target_link_libraries(server_app PUBLIC ${Boost_LIBRARIES})
+
+add_executable(test
+        test.cpp
+        server/Server.hpp
+        server/Server.cpp
+        client/Client.hpp
+        client/Client.cpp
+        client/ClientCommandHandler.hpp
+        client/ClientCommandHandler.cpp
+        connection/Connection.hpp
+        connection/Connection.cpp
+        observer/ConnectionObserver.hpp
+        observer/ConnectionObserver.cpp
+        observer/Observable.hpp
+        observer/Observable.cpp)
