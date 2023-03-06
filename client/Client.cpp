@@ -5,6 +5,8 @@ Client::Client() {
 }
 
 void Client::connect(const std::string& ip, int port) {
+    std::cout << "Connecting to server with IP: " << ip
+              << " on port: " << port << std::endl;
     if (server->is_open()) return already_connected();
     try {
         auto endpoint = tcp::endpoint(boost::asio::ip::make_address(ip), port);
@@ -23,14 +25,19 @@ void Client::connect(const std::string& ip, int port) {
 }
 
 void Client::disconnect() {
+    std::cout << "Disconnecting from the server" << std::endl;
     if (!server->is_open()) return not_connected();
+    auto server_ip_port = server->remote_ip_port();
     server->writeln("disconnect");
     server->close();
     io_context.stop();
     io_thread.join();
+    server = std::make_shared<Connection>();
+    std::cout << "Successfully disconnected from the server " << server_ip_port << std::endl;
 }
 
 void Client::shell(const std::string& command) {
+    std::cout << "Executing shell command: " << command << std::endl;
     if (!server->is_open()) return not_connected();
     server->writeln(command);
 }
