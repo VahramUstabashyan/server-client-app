@@ -34,6 +34,11 @@ cmake ${SERVER_CLIENT_APP_PROJECT_DIR}
 
 ## Run
 
+### Test
+```
+${SERVER_CLIENT_APP_PROJECT_DIR}/build/test
+```
+
 ### Server side
 ```
 ${SERVER_CLIENT_APP_PROJECT_DIR}/build/server_app
