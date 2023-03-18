@@ -48,5 +48,5 @@ std::string Client::handle_new_message(std::string msg, const std::string& ip_po
 }
 
 Client::~Client() {
-    disconnect();
+    if (server->is_open()) disconnect();
 }

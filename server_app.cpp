@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
     while (!quit) {
         std::cout << "server@" << ip << ":" << port << "$ ";
         std::string input;
-        std::cin >> input;
+        std::getline(std::cin, input, '\n');
         quit = input == "quit";
     }
 }
