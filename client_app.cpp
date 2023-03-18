@@ -14,6 +14,7 @@ int main() {
     std::string user_input;
     bool quit = false;
     while (!quit) {
+        std::cout << "client$ ";
         std::getline(std::cin, user_input);
         quit = command_handler->handle_command(user_input);
     }

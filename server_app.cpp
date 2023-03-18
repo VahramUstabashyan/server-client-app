@@ -27,6 +27,7 @@ int main(int argc, char** argv) {
 
     bool quit = false;
     while (!quit) {
+        std::cout << "server@" << ip << ":" << port << "$ ";
         std::string input;
         std::cin >> input;
         quit = input == "quit";
