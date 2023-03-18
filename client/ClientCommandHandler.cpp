@@ -5,6 +5,7 @@ ClientCommandHandler::ClientCommandHandler(std::shared_ptr<Client> client)
 }
 
 bool ClientCommandHandler::handle_command(const std::string& command) {
+    if (command.empty()) return false;
     try {
         std::istringstream command_ss(command);
         std::string token = get_argument(command_ss);
