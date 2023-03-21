@@ -17,6 +17,7 @@ void Connection::read() {
 }
 
 void Connection::handle_read(boost::system::error_code err, std::size_t bytes_read) {
+    if (!is_open()) return;
     if (err) {
         std::cout << "Error code: " << err << std::endl;
         close();
@@ -26,7 +27,7 @@ void Connection::handle_read(boost::system::error_code err, std::size_t bytes_re
     if (bytes_read) {
         read_msg = {boost::asio::buffers_begin(read_buf.data()), boost::asio::buffers_end(read_buf.data())};
 //        std::cout << "Received message (" << bytes_read << " bytes): " << read_msg << std::endl;
-        read_buf.consume(bytes_read);
+        read_buf.consume(read_buf.size());
         update();
     }
     read();
@@ -66,7 +67,7 @@ bool Connection::is_open() {
 }
 
 void Connection::close() {
-    socket_ptr->close();
+    if (socket_ptr) socket_ptr->close();
     socket_ptr = nullptr;
 }
 
@@ -75,7 +76,8 @@ void Connection::update() {
     auto observer = observer_weak.lock();
     if (!observer) return;
     auto msg = get_last_msg();
-    msg = msg.substr(0, msg.size() - END_OF_MESSAGE.size());
+    size_t pos;
+    while ((pos = msg.find(END_OF_MESSAGE)) != std::string::npos) msg.erase(pos, END_OF_MESSAGE.length());
     auto response = observer->handle_new_message(msg, remote_ip_port());
     if (!response.empty()) writeln(response);
 }
