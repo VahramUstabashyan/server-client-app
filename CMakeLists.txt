@@ -19,7 +19,7 @@ add_executable(client_app
         observer/ConnectionObserver.cpp
         observer/Observable.hpp
         observer/Observable.cpp)
-target_link_libraries(client_app PUBLIC ${Boost_LIBRARIES})
+target_link_libraries(client_app PUBLIC ${Boost_LIBRARIES} readline)
 
 add_executable(server_app
         server_app.cpp
@@ -31,7 +31,7 @@ add_executable(server_app
         observer/ConnectionObserver.cpp
         observer/Observable.hpp
         observer/Observable.cpp)
-target_link_libraries(server_app PUBLIC ${Boost_LIBRARIES})
+target_link_libraries(server_app PUBLIC ${Boost_LIBRARIES} readline)
 
 add_executable(test
         test.cpp
@@ -47,3 +47,4 @@ add_executable(test
         observer/ConnectionObserver.cpp
         observer/Observable.hpp
         observer/Observable.cpp)
+target_link_libraries(test PUBLIC ${Boost_LIBRARIES} readline)

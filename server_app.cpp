@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <memory>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 #include "server/Server.hpp"
 
@@ -26,10 +28,10 @@ int main(int argc, char** argv) {
     auto server = std::make_shared<Server>(ip, port);
 
     bool quit = false;
+    std::string start_str = "server@" + ip + ":" + std::to_string(port) + "$ ";
     while (!quit) {
-        std::cout << "server@" << ip << ":" << port << "$ ";
-        std::string input;
-        std::getline(std::cin, input, '\n');
+        std::string input = readline(start_str.c_str());
+        if (input.length() > 0) add_history(input.c_str());
         quit = input == "quit";
     }
 }

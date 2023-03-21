@@ -7,11 +7,12 @@ various shell commands on remote and get the result back.
 
 ## Prerequisites
 
-First, you must have installed C++ Boost library on your device.
-If you don't have any, run this in your terminal:
+First, you must have installed C++ `Boost` and `readline` libraries on your device.
+If you don't have any of these, run this in your terminal:
 
 ```
 sudo apt install libboost-dev
+sudo apt install libreadline-dev
 ```
 
 And second, CMake will be used to build the project.
