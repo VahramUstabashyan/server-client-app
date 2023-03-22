@@ -3,9 +3,12 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <vector>
 #include <memory>
 #include <thread>
 #include <boost/asio.hpp>
+#include <unistd.h>
+#include <sys/wait.h>
 
 #include "../connection/Connection.hpp"
 
@@ -20,6 +23,10 @@ private:
 
     /// Client connections
     std::map<std::string, std::unique_ptr<Connection>> clients;
+
+    /// PIDs and threads of processed run by clients
+    std::map<std::string, std::vector<int>> pids;
+    std::map<std::string, std::vector<std::thread>> p_threads;
 
     /// Maximum number of clients
     const int max_clients = 5;
@@ -42,13 +49,15 @@ public:
     /**
      * Execute command in the shell
      * @param command Shell command to execute
+     * @param ip_port Client IP and Port in ip:port format
      * @return Response message
      */
-    static std::string shell(const std::string& command);
+    std::string shell(const std::string& command, const std::string& ip_port);
 
     /**
      * Handle new message
      * @param msg Received message
+     * @param ip_port Client IP and Port in ip:port format
      * @return Response
      */
     std::string handle_new_message(std::string msg, const std::string& ip_port) override;
