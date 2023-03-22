@@ -12,9 +12,8 @@ public:
     /**
      * Handle new message from connection
      * @param msg Received message
-     * @return Response
      */
-    virtual std::string handle_new_message(std::string msg, const std::string& ip_port) = 0;
+    virtual void handle_new_message(std::string msg, const std::string& ip_port) = 0;
 
 protected:
     static void not_connected();

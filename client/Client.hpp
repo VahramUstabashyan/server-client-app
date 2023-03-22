@@ -46,7 +46,6 @@ public:
     /**
      * Handle message from server
      * @param msg Received message
-     * @return Response
      */
-    std::string handle_new_message(std::string msg, const std::string& ip_port) override;
+    void handle_new_message(std::string msg, const std::string& ip_port) override;
 };

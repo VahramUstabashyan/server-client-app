@@ -42,9 +42,8 @@ void Client::shell(const std::string& command) {
     server->writeln(command);
 }
 
-std::string Client::handle_new_message(std::string msg, const std::string& ip_port) {
+void Client::handle_new_message(std::string msg, const std::string& ip_port) {
     std::cerr << msg << std::endl;
-    return {};
 }
 
 Client::~Client() {

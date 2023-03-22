@@ -46,18 +46,16 @@ void Server::handle_connection(boost::system::error_code err,
     async_accept();
 }
 
-std::string Server::handle_new_message(std::string msg, const std::string& ip_port) {
+void Server::handle_new_message(std::string msg, const std::string& ip_port) {
     if (msg == "disconnect") {
         disconnect(ip_port);
         std::cout << "Successfully disconnected from client " << ip_port << std::endl;
-        return {};
-    } else {
+    } else {  // shell
         if (p_threads.find(ip_port) == p_threads.end()) p_threads[ip_port] = std::vector<std::thread>();
         auto nt = std::thread([this, msg, ip_port]() {
             shell(msg, ip_port);
             });
         p_threads[ip_port].push_back(std::move(nt));
-        return "";
     }
 }
 
@@ -78,7 +76,7 @@ void Server::disconnect(const std::string& ip_port) {
 
 #define READ 0
 #define WRITE 1
-std::string Server::shell(const std::string& command, const std::string& ip_port) {
+void Server::shell(const std::string& command, const std::string& ip_port) {
     std::cout << "Running command from " << ip_port << ": " << command << std::endl;
 
     int p_stdout[2];
@@ -108,5 +106,4 @@ std::string Server::shell(const std::string& command, const std::string& ip_port
     fclose(fp_stdout);
     wait(nullptr);
     pids[ip_port].erase(std::find(pids[ip_port].begin(), pids[ip_port].end(), pid));
-    return "";
 }

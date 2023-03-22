@@ -77,6 +77,5 @@ void Connection::update() {
     auto msg = get_last_msg();
     size_t pos;
     while ((pos = msg.find(END_OF_MESSAGE)) != std::string::npos) msg.erase(pos, END_OF_MESSAGE.length());
-    auto response = observer->handle_new_message(msg, remote_ip_port());
-    if (!response.empty()) writeln(response);
+    observer->handle_new_message(msg, remote_ip_port());
 }

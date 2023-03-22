@@ -50,17 +50,15 @@ public:
      * Execute command in the shell
      * @param command Shell command to execute
      * @param ip_port Client IP and Port in ip:port format
-     * @return Response message
      */
-    std::string shell(const std::string& command, const std::string& ip_port);
+    void shell(const std::string& command, const std::string& ip_port);
 
     /**
      * Handle new message
      * @param msg Received message
      * @param ip_port Client IP and Port in ip:port format
-     * @return Response
      */
-    std::string handle_new_message(std::string msg, const std::string& ip_port) override;
+    void handle_new_message(std::string msg, const std::string& ip_port) override;
 
 private:
     /**
