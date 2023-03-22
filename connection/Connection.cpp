@@ -51,8 +51,7 @@ void Connection::write(const std::string& msg) {
 
 void Connection::handle_write(boost::system::error_code err, std::size_t bytes_written) const {
     if (err) {
-        std::cerr << "Writing to " << remote_ip_port() << " failed with error code: " << err << std::endl;
-        return;
+        return; 
     }
 //    std::cout << "Written " << bytes_written << " bytes to " << remote_ip_port() << std::endl;
 }
